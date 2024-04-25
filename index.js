@@ -73,13 +73,8 @@ function writeToFile(fileName, questions) {
 
       fs.writeFile(fileName, readmeContents, (err) => {
         err ? console.error(err) : console.log('README.md created!');})
-
-        console.log(answers)
     })
     .catch((err) => console.error(err));
-
-    
-  
 }
 
 process.on('uncaughtException', (err) => {

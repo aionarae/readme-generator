@@ -24,7 +24,6 @@ function renderLicenseLink(license) {
     return '';
   } else {
     let licenseLink = `https://choosealicense.com/licenses/${license.toLowerCase()}/`
-    console.log(licenseLink)
     return(`Copyright (c) Aiona. Licensed under the [${license}](${licenseLink}) license.`)
   }
 }
@@ -39,9 +38,7 @@ function renderLicenseSection(license) {
 ${renderLicenseLink(license)} 
 
 ${renderLicenseBadge(license)}`).trim()
-    console.log(licenseSection)
     return licenseSection
-
   }
 }
 
