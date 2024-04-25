@@ -8,10 +8,11 @@ function renderLicenseBadge(license) {
   if (!license) {
     return '';
   } else {
+    const dashLicense = license.replace(/\s/g, "-");
     let markdownLink = stripIndent(`
   ## Badges:
 
-  ![Static Badge](https://img.shields.io/badge/${license}-8A2BE2)`).trim()
+  ![Static Badge](https://img.shields.io/badge/${dashLicense}-8A2BE2)`).trim()
     return (markdownLink)
     
   }
@@ -20,13 +21,33 @@ function renderLicenseBadge(license) {
 // TODO: Create a function that returns the license link
 // If there is no license, return an empty string
 function renderLicenseLink(license) {
+  
+  let licenseLink;
+
+  switch(license){
+    case 'MIT License':
+      licenseLink = 'https://choosealicense.com/licenses/mit/';
+      break;
+    case 'Apache License 2.0':
+      licenseLink = 'https://choosealicense.com/licenses/apache-2.0/';
+      break;
+    case 'GNU General Public License v3.0':
+      licenseLink = 'https://choosealicense.com/licenses/gpl-3.0/';
+      break;
+    case 'ISC License':
+      licenseLink = 'https://choosealicense.com/licenses/isc/';
+      break;
+    default:
+      licenseLink = '';
+  }
+
   if (!license) {
     return '';
   } else {
-    let licenseLink = `https://choosealicense.com/licenses/${license.toLowerCase()}/`
-    return(`Copyright (c) Aiona. Licensed under the [${license}](${licenseLink}) license.`)
+    return(`Copyright (c) Aiona. Licensed under the [${license}](${licenseLink}) license.`);
   }
-}
+  }
+  
 
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
