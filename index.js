@@ -37,8 +37,9 @@ const questions = [
   },
   {
     name: "license",
-    type: "input",
-    message: "Please provide a license:"
+    type: "list",
+    message: "Please provide a license:",
+    choices: ["MIT", "Apache"]
   },
   {
     name: "contribute",
@@ -72,12 +73,23 @@ function writeToFile(fileName, questions) {
 
       fs.writeFile(fileName, readmeContents, (err) => {
         err ? console.error(err) : console.log('README.md created!');})
-      })
+
+        console.log(answers)
+    })
+    .catch((err) => console.error(err));
+
+    
+  
 }
+
+process.on('uncaughtException', (err) => {
+  console.error('There was an uncaught error', err);
+  process.exit(1); //mandatory (as per the Node.js docs)
+});
 
 // TODO: Create a function to initialize app
 function init() {
-  writeToFile('README.md', questions)
+  writeToFile('README.md', questions);
 }
 
 // Function call to initialize app
