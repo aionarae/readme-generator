@@ -9,12 +9,37 @@ function renderLicenseBadge(license) {
     return '';
   } else {
     const dashLicense = license.replace(/\s/g, "-");
+    let color;
+    let licenseUrl;
+  
+    switch(license){
+      case 'MIT License':
+        color = 'green';
+        licenseUrl = 'mit';
+        break;
+      case 'Apache License 2.0':
+        color = 'blue';
+        licenseUrl = 'apache-2.0';
+        break;
+      case 'GNU General Public License v3.0':
+        color = 'red';
+        licenseUrl = 'gpl-3.0';
+        break;
+      case 'ISC License':
+        color = 'yellow';
+        licenseUrl = 'isc';
+        break;
+      default:
+        color = '8A2BE2';
+        licenseUrl = '';
+    }
+  
     let markdownLink = stripIndent(`
   ## Badges:
+  
+  ![Badge](https://img.shields.io/badge/${licenseUrl}-${color})`).trim()
 
-  ![Static Badge](https://img.shields.io/badge/${dashLicense}-8A2BE2)`).trim()
     return (markdownLink)
-    
   }
 }
 
@@ -84,11 +109,11 @@ const content = stripIndent(`
   
 ## Screenshot:
 
-![Image alt text](./assets/images/<screen-shot-title>)
+![Image alt text](./assets/images/project-screenshot.png)
 
 ## Link to deployed application:
 
-https://${githubUsername}.github.io/${title}
+https://${githubUsername}.github.io/${title.toLowerCase().replace(/\s/g, '-')}
 
 ## Description:
 
