@@ -1,7 +1,7 @@
 // TODO: Include packages needed for this application
 import inquirer from 'inquirer';
 import fs from 'fs';
-import stripIndent from 'strip-indent';
+import generateMarkdown from './utils/generateMarkdown.js';
 
 // TODO: Create an array of questions for user input
 const questions = [
@@ -43,7 +43,7 @@ const questions = [
   {
     name: "contribute",
     type: "input",
-    message: "Please provide instructions how to contribute:"
+    message: "Please provide instructions on how to contribute:"
   },
   {
     name: "tests",
@@ -61,84 +61,17 @@ const questions = [
     message: "Please provide an email:"
   }
 ]
-//  "Title", "Description", "Table of Contents", "Installation", "Usage", "License", "Contributing", "Tests", "Github Username", "Email Address";
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, questions) {
   inquirer
     .prompt(questions)
     .then((answers) => {
-      let { title, 
-        description, 
-        tableOfContents,
-        installation,
-        usage,
-        credits,
-        license,
-        contribute,
-        tests,
-        githubUsername,
-        email
-      } = answers;
       
-      const content = stripIndent(`
-      # ${title}
+      let readmeContents = generateMarkdown(answers);
 
-      ## Screenshot:
-
-      ![Image alt text](<link>)
-
-      ## Link to deployed application:
-
-      https://${githubUsername}.github.io/${title}
-
-      ## Description:
-
-      ${description}
-
-      ## Table of Contents (Optional):
-
-      ${tableOfContents}
-
-      - [Installation](#installation)
-      - [Usage](#usage)
-      - [Credits](#credits)
-      - [License](#license)
-
-      ## Installation
-
-      ${installation}
-
-      ## Usage
-
-      ${usage}
-
-      ## Credits
-
-      ${credits}
-
-      ## License 
-
-      ${license}
-
-      ## Contribute
-
-      ${contribute}
-
-      ## Tests
-
-      ${tests}
-
-      ## Questions
-
-      Github Profile: https://github.com/${githubUsername}
-
-      Email: ${email}
-
-      `).trim();
-
-      fs.writeFile(fileName,content, (err) => {
-        err ? console.error(err) : console.log('Message Logged!');})
+      fs.writeFile(fileName, readmeContents, (err) => {
+        err ? console.error(err) : console.log('README.md created!');})
       })
 }
 
